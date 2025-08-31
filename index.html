@@ -16,6 +16,7 @@
       --sombra: 0 10px 25px rgba(0,0,0,.08);
       --radio: 18px;
 
+      /* RUTAS DE IMÁGENES */
       --hero-image: url('./img/Partido_Alianza_Libre.png');
       --logo-image: url('./img/c1.png');
     }
@@ -25,31 +26,36 @@
       margin:0;
       font-family:Poppins, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
       color:var(--texto);
-      padding:0;
       background:
         linear-gradient(135deg, rgba(228,30,43,.08), transparent 35%),
         linear-gradient(315deg, rgba(228,30,43,.10), transparent 55%),
         var(--gris);
     }
+
     .wrap{ width:min(1100px, 100%); margin:0 auto; padding:32px; }
 
-    /* HERO */
+    /* ===== HERO ===== */
     .hero{
       position:relative;
       border-radius:24px;
       overflow:hidden;
-      min-height: clamp(200px, 32vw, 340px);
+      /* altura base responsiva */
+      min-height: clamp(220px, 36vw, 380px);
       display:grid;
       place-items:center;
-      margin:24px 24px 24px;
+      margin:24px;
+      padding:22px 18px;
+      /* gradiente + imagen */
       background-image:
         linear-gradient(rgba(228,30,43,.20), rgba(228,30,43,.20)),
         var(--hero-image);
       background-repeat:no-repeat,no-repeat;
       background-position:center,center;
-      background-size:100% 100%, clamp(260px,60vw,720px) auto;
+      /* imagen contenida y centrada (no recorta en móviles) */
+      background-size: 100% 100%, min(90vw, 720px) auto;
       box-shadow:var(--sombra);
     }
+
     header{ text-align:center; position:relative; z-index:1; }
     .badge{
       display:inline-block;
@@ -73,46 +79,137 @@
       text-transform:uppercase;
       text-shadow:0 2px 8px rgba(0,0,0,.25);
     }
-    .hero h1{margin:14px 0 4px;font-size:clamp(22px,2.6vw,30px);color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.25);}
-    .hero .sub{margin:0 16px 16px;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.25);font-size:14px;text-align:center;}
+    .hero h1{
+      margin:14px 0 6px;
+      font-size:clamp(22px, 2.8vw, 30px);
+      line-height:1.15;
+      color:#fff;
+      text-shadow:0 2px 8px rgba(0,0,0,.25);
+    }
+    .hero .sub{
+      margin:0 16px 16px;
+      color:#fff;
+      text-shadow:0 2px 8px rgba(0,0,0,.25);
+      font-size:clamp(13px, 1.6vw, 14px);
+      text-align:center;
+      max-width: 62ch;   /* evita líneas muy largas */
+    }
 
-    /* LOGO */
+    /* LOGO LATERAL */
     .side-logo{
       position:absolute; right:18px; top:18px;
-      width:min(160px,24vw); aspect-ratio:1/1;
+      width:min(160px, 24vw); aspect-ratio:1/1;
       background-image:var(--logo-image);
       background-size:contain; background-position:center; background-repeat:no-repeat;
       filter: drop-shadow(0 6px 16px rgba(0,0,0,.25)); opacity:.95;
+      pointer-events:none;   /* evita tapar toques sobre textos en móvil */
     }
-    @media(max-width:640px){.side-logo{width:110px;right:12px;top:12px;}}
 
-    /* GRID */
-    .grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin:16px;}
-    @media(max-width:900px){.grid{grid-template-columns:1fr;}}
+    /* ===== GRID ===== */
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap:18px;
+      margin:16px;
+    }
+    @media (max-width: 900px){
+      .grid{ grid-template-columns: 1fr; margin:12px; }
+    }
 
-    .card{background:var(--blanco);border-radius:var(--radio);box-shadow:var(--sombra);padding:24px;display:flex;flex-direction:column;gap:14px;min-height:220px;}
-    .card h2{margin:0 0 8px;font-size:19px;text-align:center;}
-    .card.center-all{align-items:center;text-align:center;}
+    .card{
+      background:var(--blanco);
+      border-radius:var(--radio);
+      box-shadow:var(--sombra);
+      padding:24px;
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+      min-height:220px;
+    }
+    .card h2{
+      margin:0 0 8px;
+      font-size:clamp(18px, 2vw, 19px);
+      text-align:center;
+    }
+    .card.center-all{ align-items:center; text-align:center; }
 
-    .btn{display:block;width:100%;max-width:360px;margin-inline:auto;text-align:center;padding:14px 16px;border-radius:12px;text-decoration:none;font-weight:600;background:var(--rojo);color:var(--blanco);border:2px solid transparent;transition:.15s;}
-    .btn:hover{background:var(--rojo-osc);transform:translateY(-1px);}
-    .btn:active{transform:translateY(0);}
-    .btn-out{background:var(--blanco);color:var(--rojo);border-color:var(--rojo);}
-    .btn-out:hover{background:#fff3f3;border-color:var(--rojo-osc);color:var(--rojo-osc);}
+    .btn{
+      display:block;
+      width:100%;
+      max-width:360px;
+      margin-inline:auto;
+      text-align:center;
+      padding:14px 16px;
+      border-radius:12px;
+      text-decoration:none;
+      font-weight:600;
+      background:var(--rojo);
+      color:var(--blanco);
+      border:2px solid transparent;
+      transition:.15s ease-in-out;
+    }
+    .btn:hover{ background:var(--rojo-osc); transform:translateY(-1px); }
+    .btn:active{ transform:translateY(0); }
+    .btn-out{
+      background:var(--blanco);
+      color:var(--rojo);
+      border-color:var(--rojo);
+    }
+    .btn-out:hover{
+      background:#fff3f3;
+      border-color:var(--rojo-osc);
+      color:var(--rojo-osc);
+    }
 
-    /* FOOTER */
-    .footer{margin:10px 16px 28px;text-align:center;}
-    .footer h3{margin:0 0 10px;font-size:16px;color:#333;}
-    .social{display:flex;gap:14px;justify-content:center;align-items:center;}
-    .social a{width:42px;height:42px;border-radius:50%;background:#ffffff;border:2px solid var(--rojo);display:grid;place-items:center;box-shadow:var(--sombra);transition:.15s;}
-    .social a:hover{transform:translateY(-2px);border-color:var(--rojo-osc);}
-    .social svg{width:22px;height:22px;fill:var(--rojo);}
+    /* ===== FOOTER ===== */
+    .footer{ margin:10px 16px 28px; text-align:center; }
+    .footer h3{ margin:0 0 10px; font-size:16px; color:#333; }
+    .social{ display:flex; gap:14px; justify-content:center; align-items:center; }
+    .social a{
+      width:42px; height:42px; border-radius:50%;
+      background:#ffffff; border:2px solid var(--rojo);
+      display:grid; place-items:center; box-shadow:var(--sombra); transition:.15s;
+    }
+    .social a:hover{ transform:translateY(-2px); border-color:var(--rojo-osc); }
+    .social svg{ width:22px; height:22px; fill:var(--rojo); }
+
+    /* ===== AJUSTES RESPONSIVOS ===== */
+    /* Tablets y móviles grandes */
+    @media (max-width: 768px){
+      .wrap{ padding:22px 18px; }
+      .hero{
+        margin:16px 12px;
+        padding:18px 12px;
+        min-height: clamp(220px, 46vw, 320px);
+        /* la imagen se hace un poco más grande para llenar ancho */
+        background-size: 100% 100%, 110% auto;
+        border-radius:20px;
+      }
+      .badge{
+        font-size: clamp(18px, 5.5vw, 26px);
+        padding:8px 16px;
+        border-width:2px;
+      }
+      .cargo{ font-size: clamp(12px, 3.6vw, 14px); }
+      .hero h1{ font-size: clamp(20px, 6.2vw, 26px); margin-top:10px; }
+      .hero .sub{ font-size: clamp(13px, 3.8vw, 15px); max-width: 38ch; }
+
+      .side-logo{ width: 88px; top:10px; right:10px; filter: drop-shadow(0 4px 10px rgba(0,0,0,.22)); }
+      .card{ padding:18px; }
+      .btn{ max-width: 420px; }
+    }
+
+    /* Móviles pequeños */
+    @media (max-width: 420px){
+      .side-logo{ width:72px; top:8px; right:8px; }
+      .hero{ background-size: 100% 100%, 120% auto; }
+    }
   </style>
 </head>
 <body>
   <!-- HERO -->
-  <section class="hero">
-    <div class="side-logo"></div>
+  <section class="hero" aria-label="Banner Libre">
+    <div class="side-logo" aria-hidden="true"></div>
     <header>
       <span class="badge">OMAR DURÁN</span>
       <p class="cargo">SECRETARIO NACIONAL DE SEGURIDAD</p>
@@ -121,27 +218,27 @@
     </header>
   </section>
 
-  <main class="wrap">
-    <section class="grid">
+  <main class="wrap" role="main">
+    <section class="grid" aria-label="Accesos rápidos">
       <!-- IZQUIERDA -->
-      <article class="card center-all">
-        <h2>GRUPOS DE WHATSAPP</h2>
+      <article class="card center-all" aria-labelledby="t-grupos">
+        <h2 id="t-grupos">GRUPOS DE WHATSAPP</h2>
         <a class="btn" href="https://chat.whatsapp.com/IjjIyH5MFmZHeCZ2GaAqHv?mode=ems_copy_c" target="_blank" rel="noopener">Grupo 1</a>
         <a class="btn" href="https://chat.whatsapp.com/IjjIyH5MFmZHeCZ2GaAqHv?mode=ems_copy_c" target="_blank" rel="noopener">Grupo 2</a>
         <p style="margin:6px 0 0;color:#777;font-size:12px;">Si un grupo está lleno, prueba el otro 🔥</p>
       </article>
 
       <!-- CENTRO -->
-      <article class="card">
-        <h2>PLAN DE GOBIERNO</h2>
+      <article class="card" aria-labelledby="t-plan">
+        <h2 id="t-plan">PLAN DE GOBIERNO</h2>
         <p style="margin:0;color:#555;text-align:center;">Consulta el plan completo, propuestas y ejes de trabajo.</p>
         <a class="btn" href="https://cd1.eju.tv/wp-content/uploads/2025/05/Plan-Gobierno-Libre-FINAL.pdf" target="_blank" rel="noopener noreferrer">Ver Plan de Gobierno</a>
         <a class="btn btn-out" href="https://drive.google.com/file/d/19QA2_uff9ovyWit1WLPhoW9y5fUnSFFS/view?usp=sharing" target="_blank" rel="noopener noreferrer">Resumen en 1 página (PDF)</a>
       </article>
 
       <!-- DERECHA -->
-      <article class="card">
-        <h2>ENCUESTA DE VOTACIÓN</h2>
+      <article class="card" aria-labelledby="t-encuesta">
+        <h2 id="t-encuesta">ENCUESTA DE VOTACIÓN</h2>
         <p style="margin:0;color:#555;text-align:center;">Cuéntanos tus prioridades y ayuda a mejorar nuestras propuestas.</p>
         <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSedFlw0A12lxiyaFHDq_eDQVNWzs0tkRD9DlBygUBKF8lY7lg/viewform?usp=preview" target="_blank" rel="noopener">Responder Encuesta</a>
         <a class="btn btn-out" href="https://docs.google.com/forms/d/e/1FAIpQLSedFlw0A12lxiyaFHDq_eDQVNWzs0tkRD9DlBygUBKF8lY7lg/viewform?usp=preview" target="_blank" rel="noopener">Compartir enlace</a>
@@ -149,20 +246,17 @@
     </section>
 
     <!-- FOOTER -->
-    <div class="footer">
+    <div class="footer" aria-label="Redes sociales">
       <h3>Síguenos en nuestras páginas</h3>
       <div class="social">
         <a href="#" target="_blank" rel="noopener" aria-label="Facebook">
-          <!-- Facebook -->
-          <svg viewBox="0 0 24 24"><path d="M22 12.06C22 6.49 17.52 2 12 2S2 6.49 2 12.06c0 5.01 3.66 9.16 8.44 9.94v-7.03H7.9v-2.91h2.54V9.41c0-2.5 1.49-3.88 3.77-3.88 1.09 0 2.24.2 2.24.2v2.48h-1.26c-1.24 0-1.63.77-1.63 1.56v1.87h2.78l-.44 2.91h-2.34V22c4.78-.78 8.44-4.93 8.44-9.94z"/></svg>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12.06C22 6.49 17.52 2 12 2S2 6.49 2 12.06c0 5.01 3.66 9.16 8.44 9.94v-7.03H7.9v-2.91h2.54V9.41c0-2.5 1.49-3.88 3.77-3.88 1.09 0 2.24.2 2.24.2v2.48h-1.26c-1.24 0-1.63.77-1.63 1.56v1.87h2.78l-.44 2.91h-2.34V22c4.78-.78 8.44-4.93 8.44-9.94z"/></svg>
         </a>
         <a href="https://www.tiktok.com/@bomarduranrojas?_t=ZM-8zKDKkolJcU&_r=1" target="_blank" rel="noopener" aria-label="TikTok">
-          <!-- TikTok -->
-          <svg viewBox="0 0 24 24"><path d="M21 8.06a6.67 6.67 0 0 1-4.09-1.41v6.93a6.63 6.63 0 1 1-6.63-6.64c.33 0 .65.03.96.09v3.05a3.59 3.59 0 1 0 2.6 3.45V2h3.06a6.66 6.66 0 0 0 4.1 4.09v2z"/></svg>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 8.06a6.67 6.67 0 0 1-4.09-1.41v6.93a6.63 6.63 0 1 1-6.63-6.64c.33 0 .65.03.96.09v3.05a3.59 3.59 0 1 0 2.6 3.45V2h3.06a6.66 6.66 0 0 0 4.1 4.09v2z"/></svg>
         </a>
         <a href="#" target="_blank" rel="noopener" aria-label="Instagram">
-          <!-- Instagram -->
-          <svg viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5A5.5 5.5 0 1 1 6.5 13 5.5 5.5 0 0 1 12 7.5zm0 2A3.5 3.5 0 1 0 15.5 13 3.5 3.5 0 0 0 12 9.5zm5.75-3a1.25 1.25 0 1 1-1.25 1.25A1.25 1.25 0 0 1 17.75 6.5z"/></svg>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5A5.5 5.5 0 1 1 6.5 13 5.5 5.5 0 0 1 12 7.5zm0 2A3.5 3.5 0 1 0 15.5 13 3.5 3.5 0 0 0 12 9.5zm5.75-3a1.25 1.25 0 1 1-1.25 1.25A1.25 1.25 0 0 1 17.75 6.5z"/></svg>
         </a>
       </div>
     </div>
